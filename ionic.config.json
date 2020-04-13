@@ -1,0 +1,7 @@
+{
+  "name": "Light-Up-Platform-SPA",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
