@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Webinars from './pages/Webinars/Webinar';
 
@@ -23,13 +23,19 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+/* Custom Imports*/
+import Menu from './components/Menu/Menu';
+
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonRouterOutlet>
-        <Route path="/webinars" component={Webinars} exact={true} />
-        <Route exact path="/" render={() => <Redirect to="/webinars" />} />
-      </IonRouterOutlet>
+      <IonSplitPane contentId="main">
+        <Menu />
+        <IonRouterOutlet id="main">
+          <Route path="/specialist/webinars" component={Webinars} exact={true} />
+          <Route exact path="/" render={() => <Redirect to="/specialist/webinars" />} />
+        </IonRouterOutlet>
+      </IonSplitPane>
     </IonReactRouter>
   </IonApp>
 );

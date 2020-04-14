@@ -1,15 +1,25 @@
-import { IonPage } from '@ionic/react';
+import { IonPage, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from '@ionic/react';
 import React from 'react';
+import { withRouter } from 'react-router';
 
 
 const Webinar: React.FC = () => {
 
     return (
         <IonPage>
-            <h2>Webinar Page</h2>
+            <IonHeader>
+                <IonToolbar>
+                    <IonButtons slot="start">
+                        <IonMenuButton></IonMenuButton>
+                    </IonButtons>
+                    <IonTitle>
+                        Webinar
+                   </IonTitle>
+                </IonToolbar>
+            </IonHeader>
         </IonPage>
     )
 
 };
 
-export default Webinar;
+export default withRouter(Webinar);
