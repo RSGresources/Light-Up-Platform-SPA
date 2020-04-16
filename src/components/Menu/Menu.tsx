@@ -1,7 +1,9 @@
 import React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router';
-import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonToggle, IonGrid, IonRow, IonCol } from '@ionic/react';
+import { RouteComponentProps, withRouter, useLocation } from 'react-router';
+import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonToolbar, IonImg, IonToggle, IonHeader } from '@ionic/react';
 import { videocam, people, bookmarks, library, chatboxEllipses, barbell, key, calendar, informationCircle, card, person, help } from 'ionicons/icons';
+import './Menu.scss';
+
 
 
 const routes = {
@@ -38,42 +40,66 @@ interface MenuProps extends RouteComponentProps { };
 
 const Menu: React.FC<MenuProps> = () => {
 
+    const styles = {
 
-    const renderMenuItems = (pages: Pages[]) => {
+        headerContent: {
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            alignItems: 'center'
+        }
+    }
 
-        return pages.map(pageItem => (
-            <IonMenuToggle key={pageItem.name} autoHide={false} >
-                <IonItem detail={false} routerLink={pageItem.active ? pageItem.path : undefined} routerDirection="none" className={pageItem.active ? 'selected' : undefined} >
-                    <IonIcon slot="start" icon={pageItem.icon} />
-                    <IonItem slot="start">
-                        <IonLabel>{pageItem.name}</IonLabel>
+
+    const location = useLocation();
+
+    function renderlistItems(list: Pages[]) {
+        console.log(location.pathname)
+        return list
+
+            .map(p => (
+                <IonMenuToggle key={p.name} auto-hide="false">
+                    <IonItem detail={false} routerLink={p.path} routerDirection="none" className={p.active ? location.pathname.startsWith(p.path) ? 'active-selected' : 'active' : 'inactive'}>
+                        {console.log(p.path)}
+                        <IonIcon slot="start" icon={p.icon} className={p.active ? location.pathname.startsWith(p.path) ? 'active-selected' : 'active' : 'inactive'} />
+                        <IonLabel>{p.name}</IonLabel>
                     </IonItem>
-
-                </IonItem>
-            </IonMenuToggle>
-        ))
-    };
+                </IonMenuToggle>
+            ));
+    }
 
     return (
-
         <IonMenu type="overlay" contentId="main">
+            <IonHeader className="header">
+                <IonToolbar >
+                    <div className="container-header-content">
+                        <img className="background-img" src="/images/backgrounds/sideMenu/nebula3.jpg" alt="background pic" />
+                        <img className="profile-img" src='/images/profile_pic_placeholder.jpg' alt="profile pic" />
+                        <IonLabel className="profile-text">Username: Bradamorg007</IonLabel>
+                    </div>
+                </IonToolbar>
+            </IonHeader>
             <IonContent forceOverscroll={false}>
                 <IonList lines="none">
+
                     <IonListHeader>Specialist</IonListHeader>
-                    {renderMenuItems(routes.specialist)}
+                    {renderlistItems(routes.specialist)}
                 </IonList>
                 <IonList lines="none">
+
                     <IonListHeader>Community</IonListHeader>
-                    {renderMenuItems(routes.community)}
+                    {renderlistItems(routes.community)}
                 </IonList>
                 <IonList lines="none">
+
                     <IonListHeader>Account</IonListHeader>
-                    {renderMenuItems(routes.account)}
+                    {renderlistItems(routes.account)}
+
                 </IonList>
+
             </IonContent>
         </IonMenu>
-
-    )
+    );
 };
 
 export default withRouter(Menu)
