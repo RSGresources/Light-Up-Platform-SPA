@@ -1,5 +1,6 @@
 import {
     IonPage,
+    IonContent
 } from '@ionic/react';
 import React, { useState } from 'react';
 import PageHeader from '../../components/PageHeader/PageHeader'
@@ -22,6 +23,10 @@ const Webinar = () => {
                 pageDescription={pageDescription}
                 ControlModule={WebinarControlModule}
             />
+
+            <IonContent>
+                Content Goes Here!
+            </IonContent>
         </IonPage>
     )
 
