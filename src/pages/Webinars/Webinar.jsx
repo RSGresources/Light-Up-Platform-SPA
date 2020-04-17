@@ -3,7 +3,7 @@ import {
     IonContent
 } from '@ionic/react';
 import React, { useState } from 'react';
-import PageHeader from '../../components/PageHeader/PageHeader'
+import SpecialistPageHeader from '../../components/SpecialistPageHeader/SpecialistPageHeader'
 import { withRouter } from 'react-router';
 
 import WebinarControlModule from '../../components/ControlModules/WebinarControlModule/WebinarControlModule';
@@ -17,7 +17,7 @@ const Webinar = () => {
 
     return (
         <IonPage>
-            <PageHeader
+            <SpecialistPageHeader
                 branchTitle={branchTitle}
                 pageTitle={pageTitle}
                 pageDescription={pageDescription}

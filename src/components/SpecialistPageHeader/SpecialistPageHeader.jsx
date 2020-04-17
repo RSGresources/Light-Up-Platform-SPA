@@ -10,9 +10,9 @@ import {
 } from '@ionic/react';
 import React, { useState } from 'react';
 
-import './PageHeader.scss'
+import './SpecialistPageHeader.scss'
 
-const PageHeader = ({ branchTitle, pageTitle, pageDescription, ControlModule }) => {
+const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, ControlModule }) => {
 
     const [searchText, setSearchText] = useState('');
 
@@ -63,7 +63,7 @@ const PageHeader = ({ branchTitle, pageTitle, pageDescription, ControlModule }) 
 
 };
 
-export default PageHeader;
+export default SpecialistPageHeader;
 
 
 // Stay Connected: Find all the latest and upcoming live chats accross Light Up network
