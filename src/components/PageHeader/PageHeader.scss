@@ -1,0 +1,91 @@
+
+
+.container{
+    background-color: #B1B8BD;
+
+    color:white;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.17) 56%, #36373885),
+     url(/images/backgrounds/sideMenu/nebula9.jpg);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    //background-image: url('/images/backgrounds/sideMenu/nebula8.jpg'),
+
+
+}
+
+
+
+.menu-title{
+    margin-left: 1rem;
+}
+
+.container-toolbar-main{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5rem;
+    padding-right: 1rem;
+
+}
+
+.menu-title-contents{
+    display: flex;
+    align-items: center;
+}
+
+.container-toolbar-sub{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+.page-title{
+    margin-bottom: 0.3rem;
+    font-size: 1.8rem;
+}
+
+.page-discription{
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 300s;
+}
+
+.page-control-bar{
+    margin-bottom: 0.5rem;
+
+}
+
+
+.searchbar-input-container.sc-ion-searchbar-ios{
+    height: 25px !important;
+}
+
+.searchbar-input.sc-ion-searchbar-ios{
+    font-size: 1.0rem;
+}
+
+ion-searchbar.ios{
+    --color: white;
+    --icon-color: white;
+    --background: #ffffff2e;
+    --clear-button-color: white;
+    padding-top: 12px;
+    width:150px;
+    max-width: 100%;
+    padding-right: 0px;
+    transition:width 1s;
+    -moz-transition:width 1s; /* Firefox 4 */
+    -webkit-transition:width 1s; /* Safari and Chrome */
+    -o-transition:width 1s; /* Opera */
+
+}
+
+ion-searchbar.ios:hover{
+    width: 100%;
+}

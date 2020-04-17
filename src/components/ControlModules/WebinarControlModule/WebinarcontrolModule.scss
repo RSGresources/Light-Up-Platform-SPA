@@ -1,0 +1,20 @@
+ion-segment-button.control-button1{
+    border-bottom-left-radius: 9px;
+    border-top-left-radius: 9px;
+}
+
+ion-segment-button.control-button3{
+    border-bottom-right-radius: 9px;
+    border-top-right-radius: 9px;
+}
+
+
+ion-segment-button{
+    width: 30%;
+    color: white;
+    // --background: black;
+    --background: #0000003b;
+    --background-checked: #ffffff3b;
+    --border-color: #0a0a0a00;
+   // backdrop-filter: blur(1px);
+}

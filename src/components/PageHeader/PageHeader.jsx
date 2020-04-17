@@ -1,5 +1,4 @@
 import {
-    IonPage,
     IonHeader,
     IonToolbar,
     IonButtons,
@@ -7,15 +6,13 @@ import {
     IonTitle,
     IonSearchbar,
     IonLabel,
-    IonSegment,
-    IonSegmentButton,
+
 } from '@ionic/react';
 import React, { useState } from 'react';
-import { withRouter } from 'react-router';
 
-import './Webinar.scss'
+import './PageHeader.scss'
 
-const PageHeader = () => {
+const PageHeader = ({ branchTitle, pageTitle, pageDescription, ControlModule }) => {
 
     const [searchText, setSearchText] = useState('');
 
@@ -33,7 +30,7 @@ const PageHeader = () => {
                                 <IonMenuButton></IonMenuButton>
                             </IonButtons>
                             <IonLabel className="menu-title">
-                                Specialist
+                                {branchTitle}
                             </IonLabel>
                         </div>
                         <IonSearchbar
@@ -49,20 +46,15 @@ const PageHeader = () => {
                         ></IonSearchbar>
                     </div>
                     <div className="container-toolbar-sub">
-                        <IonTitle className="page-title">Webinars</IonTitle>
-                        <IonLabel className="page-discription">Stay Connected: Find all the latest and upcoming live chats accross Light Up network</IonLabel>
-                        <IonSegment className="page-control-bar" value="Live" mode="md">
-                            <IonSegmentButton className="control-button1" value="Live">
-                                <IonLabel className="page-control-button-text1">
-                                    Live
-                                </IonLabel>
-                            </IonSegmentButton>
-                            <IonSegmentButton className="control-button3" value="scheduled">
-                                <IonLabel className="page-control-button-text2">
-                                    Scheduled
-                                </IonLabel>
-                            </IonSegmentButton>
-                        </IonSegment>
+                        <IonTitle className="page-title">
+                            {pageTitle}
+                        </IonTitle>
+                        <IonLabel className="page-discription">
+                            {pageDescription}
+                        </IonLabel>
+
+                        <ControlModule />
+
                     </div>
                 </div>
             </IonToolbar>
@@ -71,4 +63,20 @@ const PageHeader = () => {
 
 };
 
-export default withRouter(PageHeader);
+export default PageHeader;
+
+
+// Stay Connected: Find all the latest and upcoming live chats accross Light Up network
+
+// <IonSegment className="page-control-bar" value="Live" mode="md">
+// <IonSegmentButton className="control-button1" value="Live">
+//     <IonLabel className="page-control-button-text1">
+//         Live
+//     </IonLabel>
+// </IonSegmentButton>
+// <IonSegmentButton className="control-button3" value="scheduled">
+//     <IonLabel className="page-control-button-text2">
+//         Scheduled
+//     </IonLabel>
+// </IonSegmentButton>
+// </IonSegment>
