@@ -1,9 +1,7 @@
-.card-container{
 
-}
 .card-img{
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.17) 56%, #36373885),
-    url(/images/cardImages/images0.jpg);
+    url(/images/cards/backgrounds/horse-4810484_1920.jpg);
    background-size: cover;
    background-position: center center;
    background-repeat: no-repeat;
@@ -13,10 +11,9 @@
 
 .inner-card-status{
     margin: 0;
-    width: 74px;
+    width: 43px;
     height: 24px;
-    border-radius: 3px;
-    background-color: #ffffff3b;
+    background-color: white;
     color: darkred;
     font-weight: 700;
     display: flex;
@@ -34,8 +31,30 @@
 }
 
 .card-header-content{
+    display: flex;
+    justify-content: space-between;
     padding: 0px;
     color: #80808085;
     font-size: 0.9rem;
+}
+
+.chevron-button{
+    background-color: transparent;
+}
+
+.chevron_icon{
+    transition: transform 0.6s ease;
+}
+
+.rotate{
+    transform: rotate(180deg);
+}
+
+.expandable-region{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding-left: 20px;
+    padding-right: 20px
 }
 
