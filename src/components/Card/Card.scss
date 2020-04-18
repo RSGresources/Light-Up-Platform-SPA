@@ -1,0 +1,41 @@
+.card-container{
+
+}
+.card-img{
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.17) 56%, #36373885),
+    url(/images/cardImages/images0.jpg);
+   background-size: cover;
+   background-position: center center;
+   background-repeat: no-repeat;
+   height: 10rem;
+   padding: 20px
+}
+
+.inner-card-status{
+    margin: 0;
+    width: 74px;
+    height: 24px;
+    border-radius: 3px;
+    background-color: #ffffff3b;
+    color: darkred;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-title{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+}
+
+.card-header-content{
+    padding: 0px;
+    color: #80808085;
+    font-size: 0.9rem;
+}
+

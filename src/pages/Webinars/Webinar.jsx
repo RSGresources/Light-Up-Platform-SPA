@@ -1,13 +1,19 @@
 import {
     IonPage,
-    IonContent
+    IonContent,
+    IonGrid,
+    IonRow,
+    IonCol,
+
 } from '@ionic/react';
-import React, { useState } from 'react';
-import SpecialistPageHeader from '../../components/SpecialistPageHeader/SpecialistPageHeader'
+import React from 'react';
 import { withRouter } from 'react-router';
 
 import WebinarControlModule from '../../components/ControlModules/WebinarControlModule/WebinarControlModule';
 import './Webinar.scss'
+
+import SpecialistPageHeader from '../../components/SpecialistPageHeader/SpecialistPageHeader'
+import Card from '../../components/Card/Card';
 
 const Webinar = () => {
 
@@ -25,9 +31,17 @@ const Webinar = () => {
             />
 
             <IonContent>
-                Content Goes Here!
+                <IonGrid>
+                    <IonRow>
+                        <IonCol>
+
+                            <Card />
+
+                        </IonCol>
+                    </IonRow>
+                </IonGrid>
             </IonContent>
-        </IonPage>
+        </IonPage >
     )
 
 };
