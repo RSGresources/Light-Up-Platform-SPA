@@ -22,25 +22,23 @@ ion-menu ion-content {
   }
 
  .profile-img{
-      margin-top: 3vh;
-      width: 35%;
+      width: 130px;
       border-radius: 50% !important;
-      margin-bottom: 3vh;
       box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   }
 
   .profile-text{
-      padding-bottom: 3vh;
       color: white;
   }
 
 
   .container-header-content{
     display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
+
   }
+    
+  // }
 
   ion-item.active-selected {
     --color: var(--ion-color-primary);
