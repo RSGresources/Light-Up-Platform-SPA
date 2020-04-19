@@ -4,7 +4,6 @@ import {
     IonGrid,
     IonRow,
     IonCol,
-    IonLabel
 
 } from '@ionic/react';
 import React from 'react';
@@ -66,19 +65,34 @@ const prepareWebinarComponents = (data) => {
 
     data.map((webinar, index) => {
 
+        let props = {
+            marginTop: "20px",
+            redirectUrl: webinar.url,
+            background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.17) 56%, #36373885), url(${image})`,
+            activeStatus: webinar.activeStatus === 'Live' ? webinar.activeStatus : undefined,
+            subtitle: `Start: ${moment.unix(webinar.scheduledTime).format('DD/MM/YY, h:mm:ss A')}`,
+            title: webinar.title,
+            headerContent: `Host: ${webinar.host}`,
+            expandableContentTitle: webinar.title,
+            expandableContent: webinar.description
+        }
+
         if (index % 2 === 0) {
 
+            props.marginBottom = "0px"
+
             const component = <ImageCard
-                marginTop="20px"
-                marginBottom="0px"
                 key={index}
-                background={`linear-gradient(to bottom, rgba(0, 0, 0, 0.17) 56%, #36373885), url(${image})`}
-                activeStatus={webinar.activeStatus}
-                subtitle={`Start: ${moment.unix(webinar.scheduledTime).format('DD/MM/YY, h:mm:ss A')}`}
-                title={webinar.title}
-                headerContent={`Host: ${webinar.host}`}
-                expandableContentTitle={webinar.title}
-                expandableContent="Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836."
+                marginTop={props.marginTop}
+                marginBottom={props.marginBottom}
+                redirectUrl={props.redirectUrl}
+                background={props.background}
+                activeStatus={props.activeStatus}
+                subtitle={props.subtitle}
+                title={props.title}
+                headerContent={props.headerContent}
+                expandableContentTitle={props.expandableContentTitle}
+                expandableContent={props.expandableContent}
             />
 
             dataToRender.col1.push(component)
@@ -87,14 +101,15 @@ const prepareWebinarComponents = (data) => {
 
             const component = <ImageCard
                 key={index}
-                marginTop="20px"
-                background={`linear-gradient(to bottom, rgba(0, 0, 0, 0.17) 56%, #36373885), url(${image})`}
-                activeStatus={webinar.activeStatus === 'live' ? webinar.activeStatus : undefined}
-                subtitle={`Start: ${moment.unix(webinar.scheduledTime).format('DD/MM/YY, h:mm:ss A')}`}
-                title={webinar.title}
-                headerContent={`Host: ${webinar.host}`}
-                expandableContentTitle={webinar.title}
-                expandableContent="Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836."
+                marginTop={props.marginTop}
+                redirectUrl={props.redirectUrl}
+                background={props.background}
+                activeStatus={props.activeStatus}
+                subtitle={props.subtitle}
+                title={props.title}
+                headerContent={props.headerContent}
+                expandableContentTitle={props.expandableContentTitle}
+                expandableContent={props.expandableContent}
             />
 
             dataToRender.col2.push(component)
@@ -104,6 +119,7 @@ const prepareWebinarComponents = (data) => {
 
     return dataToRender
 }
+
 
 
 export default withRouter(Webinar);

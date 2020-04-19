@@ -10,7 +10,8 @@ import Divider from '../Divider/Divider';
 import './ImageCard.scss';
 
 
-const ImageCard = ({ background, activeStatus, subtitle, title, headerContent, expandableContentTitle, expandableContent, marginBottom, marginTop }) => {
+const ImageCard = ({ background, redirectUrl, activeStatus, subtitle, title, headerContent, expandableContentTitle, expandableContent, marginBottom, marginTop }) => {
+
 
     const [setActive, setActiveState] = useState(false);
     const elementRef = useRef(null);
@@ -37,11 +38,18 @@ const ImageCard = ({ background, activeStatus, subtitle, title, headerContent, e
 
     }
 
+    const redirectToWebinarDomain = () => {
+        if (activeStatus) {
+            window.open(redirectUrl, '_blank');
+        }
+    }
+
+    console.log(activeStatus)
     return (
 
-        <IonCard class="card-container" style={{ marginBottom: marginBottom, marginTop: marginTop }}>
+        <IonCard class="card-container" style={{ marginBottom: marginBottom, marginTop: marginTop }} button={true}>
             {background &&
-                <div className="card-img" style={backgroundImgStyles}>
+                <div className="card-img" style={backgroundImgStyles} onClick={redirectToWebinarDomain}>
                     {activeStatus &&
                         <IonCard class="inner-card-status">
                             <IonLabel>
@@ -53,12 +61,14 @@ const ImageCard = ({ background, activeStatus, subtitle, title, headerContent, e
             }
 
             <ion-card-header class="card-header">
-                <ion-card-subtitle class="card-subtitle">
-                    {subtitle}
-                </ion-card-subtitle>
-                <ion-card-title class="card-title">
-                    {title}
-                </ion-card-title>
+                <div className="clickable-region" onClick={redirectToWebinarDomain}>
+                    <ion-card-subtitle class="card-subtitle">
+                        {subtitle}
+                    </ion-card-subtitle>
+                    <ion-card-title class="card-title">
+                        {title}
+                    </ion-card-title>
+                </div>
 
                 <IonCardContent class="card-header-content">
                     {headerContent}
