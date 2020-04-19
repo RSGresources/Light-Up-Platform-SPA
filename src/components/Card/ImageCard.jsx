@@ -47,7 +47,7 @@ const ImageCard = ({ background, redirectUrl, activeStatus, subtitle, title, hea
     console.log(activeStatus)
     return (
 
-        <IonCard class="card-container" style={{ marginBottom: marginBottom, marginTop: marginTop }} button={true}>
+        <IonCard class="card-container" style={{ marginBottom: marginBottom, marginTop: marginTop }} >
             {background &&
                 <div className="card-img" style={backgroundImgStyles} onClick={redirectToWebinarDomain}>
                     {activeStatus &&
