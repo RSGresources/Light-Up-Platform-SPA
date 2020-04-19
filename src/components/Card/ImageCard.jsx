@@ -10,7 +10,7 @@ import Divider from '../Divider/Divider';
 import './ImageCard.scss';
 
 
-const ImageCard = ({ background, activeStatus, subtitle, title, headerContent, expandableContentTitle, expandableContent }) => {
+const ImageCard = ({ background, activeStatus, subtitle, title, headerContent, expandableContentTitle, expandableContent, marginBottom, marginTop }) => {
 
     const [setActive, setActiveState] = useState(false);
     const elementRef = useRef(null);
@@ -39,14 +39,16 @@ const ImageCard = ({ background, activeStatus, subtitle, title, headerContent, e
 
     return (
 
-        <IonCard class="card-container">
+        <IonCard class="card-container" style={{ marginBottom: marginBottom, marginTop: marginTop }}>
             {background &&
                 <div className="card-img" style={backgroundImgStyles}>
-                    <IonCard class="inner-card-status">
-                        <IonLabel>
-                            {activeStatus}
-                        </IonLabel>
-                    </IonCard>
+                    {activeStatus &&
+                        <IonCard class="inner-card-status">
+                            <IonLabel>
+                                {activeStatus}
+                            </IonLabel>
+                        </IonCard>
+                    }
                 </div>
             }
 
