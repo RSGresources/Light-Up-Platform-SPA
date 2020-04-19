@@ -45,6 +45,7 @@ const Webinar = () => {
                                 subtitle={`Start: ${moment.unix(data.webinar1.scheduledTime).format('DD/MM/YY, h:mm:ss A')}`}
                                 title={data.webinar1.title}
                                 headerContent={`Host: ${data.webinar1.host}`}
+                                expandableContentTitle={data.webinar1.title}
                                 expandableContent="Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836."
                             />
 
