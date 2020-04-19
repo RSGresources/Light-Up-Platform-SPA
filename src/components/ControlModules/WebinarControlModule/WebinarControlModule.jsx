@@ -11,7 +11,7 @@ const WebinarControlModule = () => {
         <IonSegment className="page-control-bar" value="Live" mode="md">
             <IonSegmentButton className="control-button1" value="Live">
                 <IonLabel className="page-control-button-text1">
-                    Live
+                    Active
                 </IonLabel>
             </IonSegmentButton>
             <IonSegmentButton className="control-button3" value="scheduled">

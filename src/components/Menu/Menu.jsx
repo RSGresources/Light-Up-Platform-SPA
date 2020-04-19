@@ -30,6 +30,21 @@ const routes = {
     ]
 };
 
+const image = '/images/backgrounds/sideMenu/nebula3.jpg'
+
+const headerBackground = {
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "column",
+    alignItems: "center",
+    background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.17) 56%, #36373885), url(${image})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    height: "16.2rem",
+    padding: "20px"
+}
+
 
 const Menu = () => {
 
@@ -52,8 +67,7 @@ const Menu = () => {
         <IonMenu type="overlay" contentId="main" mode="md">
             <IonHeader className="header" mode="md">
                 <IonToolbar mode="md">
-                    <div className="container-header-content">
-                        <img className="background-img" src="/images/backgrounds/sideMenu/nebula3.jpg" alt="background pic" />
+                    <div className="container-header-content" style={headerBackground}>
                         <img className="profile-img" src='/images/profile_pic_placeholder.jpg' alt="profile pic" />
                         <IonLabel className="profile-text">Username: Bradamorg007</IonLabel>
                     </div>
