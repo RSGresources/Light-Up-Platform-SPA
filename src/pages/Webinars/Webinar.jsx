@@ -33,8 +33,8 @@ const Webinar = () => {
                 ControlModule={WebinarControlModule}
             />
 
-            <IonContent>
-                <IonGrid>
+            <IonContent class="content-master">
+                <IonGrid class="content-grid-overlay">
                     <IonRow>
                         <IonCol size-sm="6" style={{ padding: "0px" }}>
 

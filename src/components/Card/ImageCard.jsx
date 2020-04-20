@@ -13,7 +13,7 @@ import './ImageCard.scss';
 const ImageCard = ({ background, redirectUrl, activeStatus, subtitle, title, headerContent, expandableContentTitle, expandableContent, marginBottom, marginTop }) => {
 
 
-    const [setActive, setActiveState] = useState(false);
+    const [setActive, setActiveState] = useState('');
     const elementRef = useRef(null);
 
     useEffect(() => {
@@ -44,14 +44,13 @@ const ImageCard = ({ background, redirectUrl, activeStatus, subtitle, title, hea
         }
     }
 
-    console.log(activeStatus)
     return (
 
-        <IonCard class="card-container" style={{ marginBottom: marginBottom, marginTop: marginTop }} >
+        <IonCard class="card-container" style={{ marginBottom: marginBottom, marginTop: marginTop }} button={true} >
             {background &&
                 <div className="card-img" style={backgroundImgStyles} onClick={redirectToWebinarDomain}>
                     {activeStatus &&
-                        <IonCard class="inner-card-status">
+                        <IonCard class="inner-card-status" >
                             <IonLabel>
                                 {activeStatus}
                             </IonLabel>
@@ -60,9 +59,9 @@ const ImageCard = ({ background, redirectUrl, activeStatus, subtitle, title, hea
                 </div>
             }
 
-            <ion-card-header class="card-header">
-                <div className="clickable-region" onClick={redirectToWebinarDomain}>
-                    <ion-card-subtitle class="card-subtitle">
+            <ion-card-header class="card-header" >
+                <div className="clickable-region" >
+                    <ion-card-subtitle class="card-subtitle" onClick={redirectToWebinarDomain}>
                         {subtitle}
                     </ion-card-subtitle>
                     <ion-card-title class="card-title">
