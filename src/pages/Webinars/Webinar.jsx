@@ -21,17 +21,10 @@ const Webinar = () => {
 
     const { searchBarState } = useContext(SearhBarStateContext);
 
-    const [text, setText] = useState();
-
     const branchTitle = 'Specialist';
     const pageTitle = "Webinars";
     const pageDescription = "Stay Connected: Find all the latest and upcoming live chats accross Light Up network";
 
-    const handleOnChangeText = (e) => {
-
-        setText(e.target.value)
-        console.log(text)
-    }
 
     const webinarData = prepareWebinarComponents(data);
     return (
@@ -41,17 +34,13 @@ const Webinar = () => {
                 pageTitle={pageTitle}
                 pageDescription={pageDescription}
                 ControlModule={WebinarControlModule}
-                searchBarHandler
             />
 
 
             <IonContent class="content-master">
 
 
-                <input onChange={handleOnChangeText} />
-
                 {/* {console.log('searchBarState From Return', searchBarState.searchString)} */}
-                <h2>{searchBarState.searchString}</h2>
                 <IonGrid class="content-grid-overlay">
                     <IonRow>
                         <IonCol size-sm="6" style={{ padding: "0px" }}>
@@ -95,9 +84,11 @@ const prepareWebinarComponents = (data) => {
             expandableContent: webinar.description
         }
 
+
         if (index % 2 === 0) {
 
             props.marginBottom = "0px"
+            props.marginTop = "20px"
 
             const component = <ImageCard
                 key={index}
@@ -114,6 +105,7 @@ const prepareWebinarComponents = (data) => {
             />
 
             dataToRender.col1.push(component)
+
 
         } else {
 

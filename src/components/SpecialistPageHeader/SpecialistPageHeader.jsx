@@ -47,25 +47,17 @@ const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, Control
                                 {branchTitle}
                             </IonLabel>
                         </div>
-                        <IonSearchbar
-                            onIonChange={e => {
-                                console.log(searchText)
-                                setSearchText(e.target.value)
-                            }}
-                            value={searchText}
-                            autocomplete="on"
-                            onKeyDown={
-                                (e) => e.type === 'keydown' &&
-                                    (e.key === 'Enter' || e.key === 'done') &&
-                                    handleSearchBarClick()
-                            }
-                            spellCheck={true}
-                            placeholder="Search..."
-                            inputMode="search"
-                            mode="ios"
-                            searchIcon={undefined}
-                            type="text"
-                        ></IonSearchbar>
+
+                        <div className="search-bar-container">
+                            <input
+                                className="search-bar"
+                                placeholder="Search..."
+                            />
+
+                            <IonLabel class="search-bar-clear-label">
+                                clear
+                        </IonLabel>
+                        </div>
                     </div>
                     <div className="container-toolbar-sub">
                         <IonTitle className="page-title">
@@ -86,6 +78,30 @@ const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, Control
 };
 
 export default SpecialistPageHeader;
+
+{/* <IonSearchbar
+
+                            value={searchText}
+                            autocomplete="on"
+
+                            spellCheck={true}
+                            placeholder="Search..."
+                            inputMode="search"
+                            mode="ios"
+                            searchIcon={undefined}
+                            type="text"
+                        ></IonSearchbar> */}
+
+// onKeyDown={
+//     (e) => e.type === 'keydown' &&
+//         (e.key === 'Enter' || e.key === 'done') &&
+//         handleSearchBarClick()
+// }
+
+// onIonChange={e => {
+//     console.log(searchText)
+//     setSearchText(e.target.value)
+// }}
 
 
 // Stay Connected: Find all the latest and upcoming live chats accross Light Up network

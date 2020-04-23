@@ -15,7 +15,8 @@
 }
 
 .menu-title{
-    margin-left: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 1rem;
 }
 
 .container-toolbar-main{
@@ -59,6 +60,12 @@
 
 }
 
+.search-bar-container{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
 
 .searchbar-input-container.sc-ion-searchbar-ios{
     height: 25px !important;
@@ -68,12 +75,13 @@
     font-size: 1.0rem;
 }
 
-ion-searchbar.ios{
-    --color: white;
-    --icon-color: white;
-    --background: #ffffff2e;
-    --clear-button-color: white;
-    padding-top: 12px;
+.search-bar{
+
+    border: none;
+    outline: none;
+    background-color: #ffffff2e;
+    border-radius: 3px;
+    padding-left: 7px;
     width:150px;
     max-width: 100%;
     padding-right: 0px;
@@ -84,6 +92,23 @@ ion-searchbar.ios{
 
 }
 
-ion-searchbar.ios:hover{
+.search-bar:hover{
     width: 100%;
 }
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: white;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: white;
+  }
+
+  .search-bar-clear-label{
+      margin-left: 8px;
+  }
