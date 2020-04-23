@@ -9,30 +9,28 @@ import {
     IonPage,
 
 } from '@ionic/react';
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 
 import './SpecialistPageHeader.scss'
-import { SetSearchBarStateContext } from '../../utils/contexts/searchBarContext'
 
 const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, ControlModule, searchBarHandler }) => {
 
     const [searchText, setSearchText] = useState('');
-    const { searchBarDispatch } = useContext(SetSearchBarStateContext);
 
 
     const handleSearchTextChange = (event) => {
         setSearchText(event.target.value);
     }
 
-    const handleSearchBarClick = () => {
-        // console.log('Search String', searchText)
-        // console.log('dispatch context func', searchBarDispatch)
-        searchBarDispatch({
-            type: 'setSearchString',
-            searchString: searchText
-        })
+    // const handleSearchBarClick = () => {
+    //     // console.log('Search String', searchText)
+    //     // console.log('dispatch context func', searchBarDispatch)
+    //     searchBarDispatch({
+    //         type: 'setSearchString',
+    //         searchString: searchText
+    //     })
 
-    }
+    // }
 
     return (
         <IonHeader className="header-page" >
@@ -52,6 +50,9 @@ const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, Control
                             <input
                                 className="search-bar"
                                 placeholder="Search..."
+                                value={searchText}
+                                onChange={e => { setSearchText(e.target.value) }}
+                                onKeyDown={(e) => e.type === 'keydown' && (e.key === 'Enter' || e.key === 'done') && searchBarHandler(searchText)}
                             />
 
                             <IonLabel class="search-bar-clear-label">

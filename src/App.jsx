@@ -3,7 +3,6 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Webinars from './pages/Webinars/Webinar';
-import { SearchBarContextProvider } from './utils/contexts/searchBarContext'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -29,25 +28,23 @@ import Menu from './components/Menu/Menu';
 
 const App = () => (
   <IonApp>
-    <SearchBarContextProvider>
 
-      <IonReactRouter>
+    <IonReactRouter>
 
-        <IonSplitPane contentId="main">
-          <Menu />
-          <IonRouterOutlet id="main">
-            <Route path="/specialist/webinars" exact={true} >
+      <IonSplitPane contentId="main">
+        <Menu />
+        <IonRouterOutlet id="main">
+          <Route path="/specialist/webinars" exact={true} >
 
 
-              <Webinars />
+            <Webinars />
 
-            </Route>
-            <Route exact path="/" render={() => <Redirect to="/specialist/webinars" />} />
-          </IonRouterOutlet>
-        </IonSplitPane>
+          </Route>
+          <Route exact path="/" render={() => <Redirect to="/specialist/webinars" />} />
+        </IonRouterOutlet>
+      </IonSplitPane>
 
-      </IonReactRouter>
-    </SearchBarContextProvider>
+    </IonReactRouter>
 
   </IonApp>
 );

@@ -6,63 +6,98 @@ import {
     IonCol,
 
 } from '@ionic/react';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router';
 import moment from 'moment';
+import FuzzySearch from 'fuzzy-search'
 import WebinarControlModule from '../../components/ControlModules/WebinarControlModule/WebinarControlModule';
 import './Webinar.scss'
 
 import SpecialistPageHeader from '../../components/SpecialistPageHeader/SpecialistPageHeader'
 import ImageCard from '../../components/Card/ImageCard';
-import data from '../../utils/mockData/mockWebinars';
-import { SearhBarStateContext, SetSearchBarStateContext } from '../../utils/contexts/searchBarContext';
+import mockData from '../../utils/mockData/mockWebinars';
+
 
 const Webinar = () => {
-
-    const { searchBarState } = useContext(SearhBarStateContext);
+    const [data, setData] = useState(mockData);
+    const [activeDisplay, setActiveDisplay] = useState(data);
+    const [fallBackDisplay, setFallBackDisplay] = useState();
+    const [searchString, setSearchString] = useState();
 
     const branchTitle = 'Specialist';
     const pageTitle = "Webinars";
     const pageDescription = "Stay Connected: Find all the latest and upcoming live chats accross Light Up network";
 
+    const searchBarHandler = (text) => {
+        setSearchString(text);
+        console.log('hit')
+    }
 
-    const webinarData = prepareWebinarComponents(data);
+
+    const exeuteSearch = () => {
+
+        const searcher = new FuzzySearch(data, ['host', 'title', 'description', 'scheduledTime', 'expiredTime', 'activeStatus'], {
+            caseSensitive: false, sort: true
+        });
+        const result = searcher.search(searchString);
+        console.log(result)
+        result.length === 0 ? setFallBackDisplay(<h4>No content found</h4>) : setActiveDisplay(result)
+        setSearchString(undefined)
+    }
+
+    if (searchString) {
+        setFallBackDisplay(undefined)
+        exeuteSearch();
+    }
+
+
+
     return (
         <IonPage>
             <SpecialistPageHeader
                 branchTitle={branchTitle}
                 pageTitle={pageTitle}
                 pageDescription={pageDescription}
+                searchBarHandler={searchBarHandler}
                 ControlModule={WebinarControlModule}
             />
 
 
             <IonContent class="content-master">
 
-
-                {/* {console.log('searchBarState From Return', searchBarState.searchString)} */}
-                <IonGrid class="content-grid-overlay">
-                    <IonRow>
-                        <IonCol size-sm="6" style={{ padding: "0px" }}>
-
-                            {webinarData.col1}
-
-                        </IonCol>
-
-                        <IonCol size-sm="6" style={{ padding: "0px" }}>
-
-                            {webinarData.col2}
-
-
-                        </IonCol>
-
-                    </IonRow>
-                </IonGrid>
+                {fallBackDisplay ? fallBackDisplay : prepareGridComponents(activeDisplay)}
             </IonContent>
         </IonPage>
     )
 
 };
+
+
+const prepareGridComponents = (data) => {
+
+    const webinarData = prepareWebinarComponents(data);
+
+    return (
+        <IonGrid class="content-grid-overlay">
+            <IonRow>
+                <IonCol size-sm="6" style={{ padding: "0px" }}>
+
+                    {webinarData.col1}
+
+                </IonCol>
+
+                <IonCol size-sm="6" style={{ padding: "0px" }}>
+
+                    {webinarData.col2}
+
+                </IonCol>
+
+            </IonRow>
+        </IonGrid>
+    )
+
+}
+
 
 const prepareWebinarComponents = (data) => {
 
@@ -79,7 +114,7 @@ const prepareWebinarComponents = (data) => {
             activeStatus: webinar.activeStatus === 'Live' ? webinar.activeStatus : undefined,
             subtitle: `Start: ${moment.unix(webinar.scheduledTime).format('DD/MM/YY, h:mm:ss A')}`,
             title: webinar.title,
-            headerContent: `Host: ${webinar.host}`,
+            headerContent: webinar.host,
             expandableContentTitle: webinar.title,
             expandableContent: webinar.description
         }
