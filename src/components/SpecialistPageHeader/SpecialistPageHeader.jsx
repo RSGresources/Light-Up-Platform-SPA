@@ -6,18 +6,32 @@ import {
     IonTitle,
     IonSearchbar,
     IonLabel,
+    IonPage,
 
 } from '@ionic/react';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import './SpecialistPageHeader.scss'
+import { SetSearchBarStateContext } from '../../utils/contexts/searchBarContext'
 
-const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, ControlModule }) => {
+const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, ControlModule, searchBarHandler }) => {
 
     const [searchText, setSearchText] = useState('');
+    const { searchBarDispatch } = useContext(SetSearchBarStateContext);
+
 
     const handleSearchTextChange = (event) => {
         setSearchText(event.target.value);
+    }
+
+    const handleSearchBarClick = () => {
+        // console.log('Search String', searchText)
+        // console.log('dispatch context func', searchBarDispatch)
+        searchBarDispatch({
+            type: 'setSearchString',
+            searchString: searchText
+        })
+
     }
 
     return (
@@ -34,9 +48,17 @@ const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, Control
                             </IonLabel>
                         </div>
                         <IonSearchbar
-                            onChange={handleSearchTextChange}
+                            onIonChange={e => {
+                                console.log(searchText)
+                                setSearchText(e.target.value)
+                            }}
                             value={searchText}
                             autocomplete="on"
+                            onKeyDown={
+                                (e) => e.type === 'keydown' &&
+                                    (e.key === 'Enter' || e.key === 'done') &&
+                                    handleSearchBarClick()
+                            }
                             spellCheck={true}
                             placeholder="Search..."
                             inputMode="search"

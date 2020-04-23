@@ -6,7 +6,7 @@ import {
     IonCol,
 
 } from '@ionic/react';
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import moment from 'moment';
 import WebinarControlModule from '../../components/ControlModules/WebinarControlModule/WebinarControlModule';
@@ -15,13 +15,23 @@ import './Webinar.scss'
 import SpecialistPageHeader from '../../components/SpecialistPageHeader/SpecialistPageHeader'
 import ImageCard from '../../components/Card/ImageCard';
 import data from '../../utils/mockData/mockWebinars';
+import { SearhBarStateContext, SetSearchBarStateContext } from '../../utils/contexts/searchBarContext';
 
 const Webinar = () => {
+
+    const { searchBarState } = useContext(SearhBarStateContext);
+
+    const [text, setText] = useState();
 
     const branchTitle = 'Specialist';
     const pageTitle = "Webinars";
     const pageDescription = "Stay Connected: Find all the latest and upcoming live chats accross Light Up network";
 
+    const handleOnChangeText = (e) => {
+
+        setText(e.target.value)
+        console.log(text)
+    }
 
     const webinarData = prepareWebinarComponents(data);
     return (
@@ -31,9 +41,17 @@ const Webinar = () => {
                 pageTitle={pageTitle}
                 pageDescription={pageDescription}
                 ControlModule={WebinarControlModule}
+                searchBarHandler
             />
 
+
             <IonContent class="content-master">
+
+
+                <input onChange={handleOnChangeText} />
+
+                {/* {console.log('searchBarState From Return', searchBarState.searchString)} */}
+                <h2>{searchBarState.searchString}</h2>
                 <IonGrid class="content-grid-overlay">
                     <IonRow>
                         <IonCol size-sm="6" style={{ padding: "0px" }}>
@@ -52,7 +70,7 @@ const Webinar = () => {
                     </IonRow>
                 </IonGrid>
             </IonContent>
-        </IonPage >
+        </IonPage>
     )
 
 };
