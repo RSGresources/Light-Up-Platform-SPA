@@ -9,7 +9,7 @@ import {
 import React, { useState } from 'react';
 import { withRouter } from 'react-router';
 import moment from 'moment';
-import FuzzySearch from 'fuzzy-search'
+import Fuse from 'fuse.js';
 import WebinarControlModule from '../../components/ControlModules/WebinarControlModule/WebinarControlModule';
 import './Webinar.scss'
 
@@ -36,12 +36,20 @@ const Webinar = () => {
 
     const exeuteSearch = () => {
 
-        const searcher = new FuzzySearch(data, ['host', 'title', 'description', 'scheduledTime', 'expiredTime', 'activeStatus'], {
-            caseSensitive: false, sort: true
-        });
-        const result = searcher.search(searchString);
-        console.log(result)
-        result.length === 0 ? setFallBackDisplay(<h4>No content found</h4>) : setActiveDisplay(result)
+        const options = {
+            keys: ['host', 'title', 'description', 'scheduledTime', 'expiredTime', 'activeStatus'],
+            isCaseSensitive: false,
+            includeScore: false,
+            shouldSort: true,
+            findAllMatches: true
+        }
+
+        const searcher = new Fuse(data, options);
+        const searchResults = searcher.search(searchString);
+
+
+        console.log('search results', searchResults)
+        searchResults.length === 0 ? setFallBackDisplay(<h4>No content found</h4>) : setActiveDisplay(searchResults)
         setSearchString(undefined)
     }
 
@@ -77,26 +85,113 @@ const prepareGridComponents = (data) => {
 
     const webinarData = prepareWebinarComponents(data);
 
+    const image = "/images/cards/backgrounds/spring-276014_1920.jpg"
+
+    // let props = {
+    //     marginTop: "20px",
+    //     redirectUrl: webinar.url,
+    //     background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.17) 56%, #36373885), url(${image})`,
+    //     activeStatus: webinar.activeStatus === 'Live' ? webinar.activeStatus : undefined,
+    //     subtitle: `Start: ${moment.unix(webinar.scheduledTime).format('DD/MM/YY, h:mm:ss A')}`,
+    //     title: webinar.title,
+    //     headerContent: webinar.host,
+    //     expandableContentTitle: webinar.title,
+    //     expandableContent: webinar.description
+    // }
+
     return (
         <IonGrid class="content-grid-overlay">
             <IonRow>
-                <IonCol size-sm="6" style={{ padding: "0px" }}>
+                <IonCol size-sm="12" style={{ padding: "0px" }}>
 
                     {webinarData.col1}
 
                 </IonCol>
 
-                <IonCol size-sm="6" style={{ padding: "0px" }}>
+
+                <IonCol size-sm="12" style={{ padding: "0px" }}>
 
                     {webinarData.col2}
 
                 </IonCol>
 
             </IonRow>
+
         </IonGrid>
     )
 
 }
+
+{/* <IonRow>
+
+
+{data.map((i, index) => {
+    return (
+        <IonCol key={index} size-sm="6" style={{ padding: "0px" }}>
+            <ImageCard
+                key={index}
+                marginTop="0px"
+                marginBottom="20px"
+                redirectUrl={i.redirectUrl}
+                background={`linear-gradient(to bottom, rgba(0, 0, 0, 0.17) 56%, #36373885), url(${image})`}
+                activeStatus={i.activeStatus === 'Live' ? i.activeStatus : undefined}
+                subtitle={`Start: ${moment.unix(i.scheduledTime).format('DD/MM/YY, h:mm:ss A')}`}
+                title={i.title}
+                headerContent={i.host}
+                expandableContentTitle={i.title}
+                expandableContent={i.description}
+            />
+        </IonCol>
+    )
+})}
+</IonRow> */}
+
+// <IonRow>
+// <IonCol size-sm="6" style={{ padding: "0px" }}>
+
+//     {webinarData.col1}
+
+// </IonCol>
+
+
+// <IonCol size-sm="6" style={{ padding: "0px" }}>
+
+//     {webinarData.col2}
+
+// </IonCol>
+
+// </IonRow>
+
+
+{/* <IonRow >
+< IonCol size-sm="6" style={{ display: 'flex', flexDirection: 'column', width: '50%' }}>
+    <IonRow>
+
+        {webinarData.col1.map((i, index) => {
+            return (
+                <IonCol size-sm="12" style={{ padding: "0px" }}>
+                    {i}
+                </IonCol>
+            )
+        })}
+
+
+    </IonRow>
+</ IonCol>
+
+<IonCol size-sm="6" style={{ display: 'flex', flexDirection: 'column', width: '50%' }}>
+    <IonRow>
+        {webinarData.col2.map((i, index) => {
+            return (
+                <IonCol size-sm="12" style={{ padding: "0px" }}>
+                    {i}
+                </IonCol>
+            )
+        })}
+    </IonRow>
+</IonCol>
+
+</IonRow> */}
 
 
 const prepareWebinarComponents = (data) => {
