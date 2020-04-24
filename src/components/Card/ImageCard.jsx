@@ -10,7 +10,7 @@ import Divider from '../Divider/Divider';
 import './ImageCard.scss';
 
 
-const ImageCard = ({ background, redirectUrl, activeStatus, subtitle, title, headerContent, expandableContentTitle, expandableContent, marginBottom, marginTop }) => {
+const ImageCard = ({ background, redirectUrl, activeStatus, subtitle, title, headerContent, expandableContentTitle, expandableContent, marginTop }) => {
 
 
     const [setActive, setActiveState] = useState('');
@@ -46,7 +46,7 @@ const ImageCard = ({ background, redirectUrl, activeStatus, subtitle, title, hea
 
     return (
 
-        <IonCard class="card-container" style={{ marginBottom: marginBottom, marginTop: marginTop }} button={true} >
+        <IonCard class="card-container" style={{ marginTop: marginTop, borderRadius: '7px' }} button={true} >
             {background &&
                 <div className="card-img" style={backgroundImgStyles} onClick={redirectToWebinarDomain}>
                     {activeStatus &&

@@ -26,17 +26,26 @@ import './theme/variables.css';
 /* Custom Imports*/
 import Menu from './components/Menu/Menu';
 
-const App: React.FC = () => (
+const App = () => (
   <IonApp>
+
     <IonReactRouter>
+
       <IonSplitPane contentId="main">
         <Menu />
         <IonRouterOutlet id="main">
-          <Route path="/specialist/webinars" component={Webinars} exact={true} />
+          <Route path="/specialist/webinars" exact={true} >
+
+
+            <Webinars />
+
+          </Route>
           <Route exact path="/" render={() => <Redirect to="/specialist/webinars" />} />
         </IonRouterOutlet>
       </IonSplitPane>
+
     </IonReactRouter>
+
   </IonApp>
 );
 

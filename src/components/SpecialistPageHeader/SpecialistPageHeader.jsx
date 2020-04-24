@@ -6,19 +6,17 @@ import {
     IonTitle,
     IonSearchbar,
     IonLabel,
+    IonPage,
 
 } from '@ionic/react';
 import React, { useState } from 'react';
 
 import './SpecialistPageHeader.scss'
 
-const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, ControlModule }) => {
+const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, ControlModule, controlModuleHandler, searchBarHandler }) => {
 
     const [searchText, setSearchText] = useState('');
 
-    const handleSearchTextChange = (event) => {
-        setSearchText(event.target.value);
-    }
 
     return (
         <IonHeader className="header-page" >
@@ -33,17 +31,20 @@ const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, Control
                                 {branchTitle}
                             </IonLabel>
                         </div>
-                        <IonSearchbar
-                            onChange={handleSearchTextChange}
-                            value={searchText}
-                            autocomplete="on"
-                            spellCheck={true}
-                            placeholder="Search..."
-                            inputMode="search"
-                            mode="ios"
-                            searchIcon={undefined}
-                            type="text"
-                        ></IonSearchbar>
+
+                        <div className="search-bar-container">
+                            <input
+                                className="search-bar"
+                                placeholder="Search..."
+                                value={searchText}
+                                onChange={e => { setSearchText(e.target.value) }}
+                                onKeyDown={(e) => e.type === 'keydown' && (e.key === 'Enter' || e.key === 'done') && searchBarHandler(searchText)}
+                            />
+
+                            <IonLabel class="search-bar-clear-label">
+                                clear
+                        </IonLabel>
+                        </div>
                     </div>
                     <div className="container-toolbar-sub">
                         <IonTitle className="page-title">
@@ -53,7 +54,7 @@ const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, Control
                             {pageDescription}
                         </IonLabel>
 
-                        <ControlModule />
+                        <ControlModule controlModuleHandler={controlModuleHandler} />
 
                     </div>
                 </div>
@@ -64,6 +65,30 @@ const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, Control
 };
 
 export default SpecialistPageHeader;
+
+{/* <IonSearchbar
+
+                            value={searchText}
+                            autocomplete="on"
+
+                            spellCheck={true}
+                            placeholder="Search..."
+                            inputMode="search"
+                            mode="ios"
+                            searchIcon={undefined}
+                            type="text"
+                        ></IonSearchbar> */}
+
+// onKeyDown={
+//     (e) => e.type === 'keydown' &&
+//         (e.key === 'Enter' || e.key === 'done') &&
+//         handleSearchBarClick()
+// }
+
+// onIonChange={e => {
+//     console.log(searchText)
+//     setSearchText(e.target.value)
+// }}
 
 
 // Stay Connected: Find all the latest and upcoming live chats accross Light Up network

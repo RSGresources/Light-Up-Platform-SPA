@@ -6,144 +6,157 @@ import {
     IonCol,
 
 } from '@ionic/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router';
 import moment from 'moment';
-import WebinarControlModule from '../../components/ControlModules/WebinarControlModule/WebinarControlModule';
+import Fuse from 'fuse.js';
+import { WebinarControlModule, controlModuleStates } from '../../components/ControlModules/WebinarControlModule/WebinarControlModule';
 import './Webinar.scss'
+import status from '../../utils/constants/webinarActiveStatuses';
 
 import SpecialistPageHeader from '../../components/SpecialistPageHeader/SpecialistPageHeader'
 import ImageCard from '../../components/Card/ImageCard';
-import data from '../../utils/mockData/mockWebinars';
+import mockData from '../../utils/mockData/mockWebinars';
+
 
 const Webinar = () => {
+    const [data, setData] = useState(mockData);
+
+    const [activeDisplay, setActiveDisplay] = useState(data);
+    const [fallBackDisplay, setFallBackDisplay] = useState();
+
+    const [searchString, setSearchString] = useState();
+
+    const [filterByControlModule, setFilterByControlModule] = useState(true);
+    const [controlModuleValue, setControlModuleValue] = useState(controlModuleStates.inital);
+
 
     const branchTitle = 'Specialist';
     const pageTitle = "Webinars";
     const pageDescription = "Stay Connected: Find all the latest and upcoming live chats accross Light Up network";
 
+    const searchBarHandler = (text) => {
+        setSearchString(text);
+    }
 
-    const webinarData = prepareWebinarComponents(data);
+    const controlModuleHandler = (state) => {
+        setControlModuleValue(state);
+        setFilterByControlModule(true);
+    };
+
+    const exeuteControlModuleSearch = (state) => {
+
+        const h = controlModuleStates.scheduled;
+        const searchResults = data.filter(i => {
+
+            if (controlModuleValue === controlModuleStates.active) {
+
+                if (i.activeStatus === status.active || i.activeStatus === status.upComing) {
+                    return i;
+                }
+
+            } else if (controlModuleValue === controlModuleStates.scheduled) {
+
+                if (i.activeStatus === status.scheduled) {
+                    return i;
+                }
+            }
+        });
+
+        setActiveDisplay(searchResults);
+        setFilterByControlModule(false);
+    }
+
+    const exeuteSearch = () => {
+
+        const options = {
+            keys: ['host', 'title', 'description', 'scheduledTime', 'expiredTime', 'activeStatus'],
+            isCaseSensitive: false,
+            includeScore: false,
+            shouldSort: true,
+            findAllMatches: true
+        }
+
+        const searcher = new Fuse(data, options);
+        const searchResults = searcher.search(searchString);
+
+
+        // console.log('search results', searchResults)
+        searchResults.length === 0 ? setFallBackDisplay(<h4>No content found</h4>) : setActiveDisplay(searchResults)
+        setSearchString(undefined)
+    }
+
+    if (searchString) {
+
+        setFallBackDisplay(undefined)
+        exeuteSearch();
+
+    } else if (filterByControlModule) {
+
+        setFallBackDisplay(undefined);
+        exeuteControlModuleSearch();
+    }
+
+
+
     return (
         <IonPage>
             <SpecialistPageHeader
                 branchTitle={branchTitle}
                 pageTitle={pageTitle}
                 pageDescription={pageDescription}
+                searchBarHandler={searchBarHandler}
                 ControlModule={WebinarControlModule}
+                controlModuleHandler={controlModuleHandler}
             />
 
+
             <IonContent class="content-master">
-                <IonGrid class="content-grid-overlay">
-                    <IonRow>
-                        <IonCol size-sm="6" style={{ padding: "0px" }}>
-
-                            {webinarData.col1}
-
-                        </IonCol>
-
-                        <IonCol size-sm="6" style={{ padding: "0px" }}>
-
-                            {webinarData.col2}
-
-
-                        </IonCol>
-
-                    </IonRow>
-                </IonGrid>
+                {fallBackDisplay ? fallBackDisplay : prepareGridComponents(activeDisplay)}
             </IonContent>
-        </IonPage >
+        </IonPage>
     )
 
 };
 
-const prepareWebinarComponents = (data) => {
+
+const prepareGridComponents = (data) => {
 
     const image = "/images/cards/backgrounds/spring-276014_1920.jpg"
 
-    const dataToRender = { col1: [], col2: [] };
+    return (
+        <IonGrid class="content-grid-overlay" style={{ paddingTop: '20px' }}>
+            <IonRow>
 
-    data.map((webinar, index) => {
 
-        let props = {
-            marginTop: "20px",
-            redirectUrl: webinar.url,
-            background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.17) 56%, #36373885), url(${image})`,
-            activeStatus: webinar.activeStatus === 'Live' ? webinar.activeStatus : undefined,
-            subtitle: `Start: ${moment.unix(webinar.scheduledTime).format('DD/MM/YY, h:mm:ss A')}`,
-            title: webinar.title,
-            headerContent: `Host: ${webinar.host}`,
-            expandableContentTitle: webinar.title,
-            expandableContent: webinar.description
-        }
+                {data.map((i, index) => {
+                    return (
+                        <IonCol key={index} size-sm="6" style={{ padding: "0px" }}>
+                            <ImageCard
+                                key={index}
+                                marginTop="0px"
+                                marginBottom="20px"
+                                redirectUrl={i.redirectUrl}
+                                background={`linear-gradient(to bottom, rgba(0, 0, 0, 0.17) 56%, #36373885), url(${image})`}
+                                activeStatus={i.activeStatus === status.active ? i.activeStatus : undefined}
+                                subtitle={`Start: ${moment.unix(i.scheduledTime).format('DD/MM/YY, h:mm:ss A')}`}
+                                title={i.title}
+                                headerContent={i.host}
+                                expandableContentTitle={i.title}
+                                expandableContent={i.description}
+                            />
+                        </IonCol>
+                    )
+                })}
+            </IonRow>
 
-        if (index % 2 === 0) {
+        </IonGrid>
+    )
 
-            props.marginBottom = "0px"
-
-            const component = <ImageCard
-                key={index}
-                marginTop={props.marginTop}
-                marginBottom={props.marginBottom}
-                redirectUrl={props.redirectUrl}
-                background={props.background}
-                activeStatus={props.activeStatus}
-                subtitle={props.subtitle}
-                title={props.title}
-                headerContent={props.headerContent}
-                expandableContentTitle={props.expandableContentTitle}
-                expandableContent={props.expandableContent}
-            />
-
-            dataToRender.col1.push(component)
-
-        } else {
-
-            const component = <ImageCard
-                key={index}
-                marginTop={props.marginTop}
-                redirectUrl={props.redirectUrl}
-                background={props.background}
-                activeStatus={props.activeStatus}
-                subtitle={props.subtitle}
-                title={props.title}
-                headerContent={props.headerContent}
-                expandableContentTitle={props.expandableContentTitle}
-                expandableContent={props.expandableContent}
-            />
-
-            dataToRender.col2.push(component)
-
-        }
-    })
-
-    return dataToRender
 }
-
 
 
 export default withRouter(Webinar);
 
 
 
-{/* <ImageCard
-marginTop="30px"
-background={`linear-gradient(to bottom, rgba(0, 0, 0, 0.17) 56%, #36373885), url(${image})`}
-activeStatus={data.webinar1.activeStatus}
-subtitle={`Start: ${moment.unix(data.webinar1.scheduledTime).format('DD/MM/YY, h:mm:ss A')}`}
-title={data.webinar1.title}
-headerContent={`Host: ${data.webinar1.host}`}
-expandableContentTitle={data.webinar1.title}
-expandableContent="Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836."
-/>
-
-<ImageCard
-background={`linear-gradient(to bottom, rgba(0, 0, 0, 0.17) 56%, #36373885), url(${image})`}
-activeStatus={data.webinar1.activeStatus}
-subtitle={`Start: ${moment.unix(data.webinar1.scheduledTime).format('DD/MM/YY, h:mm:ss A')}`}
-title={data.webinar1.title}
-headerContent={`Host: ${data.webinar1.host}`}
-expandableContentTitle={data.webinar1.title}
-expandableContent="Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836."
-marginBottom="0px"
-/> */}

@@ -51,11 +51,9 @@ const Menu = () => {
     const location = useLocation();
 
     function renderlistItems(pages) {
-        console.log(location.pathname)
         return pages.map(p => (
             <IonMenuToggle key={p.name} auto-hide="false" mode="md">
                 <IonItem detail={false} routerLink={p.path} routerDirection="none" className={p.active ? location.pathname.startsWith(p.path) ? 'active-selected' : 'active' : 'inactive'}>
-                    {console.log(p.path)}
                     <IonIcon slot="start" icon={p.icon} className={p.active ? location.pathname.startsWith(p.path) ? 'active-selected' : 'active' : 'inactive'} />
                     <IonLabel>{p.name}</IonLabel>
                 </IonItem>
