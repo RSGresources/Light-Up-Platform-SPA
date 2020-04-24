@@ -13,24 +13,10 @@ import React, { useState } from 'react';
 
 import './SpecialistPageHeader.scss'
 
-const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, ControlModule, searchBarHandler }) => {
+const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, ControlModule, controlModuleHandler, searchBarHandler }) => {
 
     const [searchText, setSearchText] = useState('');
 
-
-    const handleSearchTextChange = (event) => {
-        setSearchText(event.target.value);
-    }
-
-    // const handleSearchBarClick = () => {
-    //     // console.log('Search String', searchText)
-    //     // console.log('dispatch context func', searchBarDispatch)
-    //     searchBarDispatch({
-    //         type: 'setSearchString',
-    //         searchString: searchText
-    //     })
-
-    // }
 
     return (
         <IonHeader className="header-page" >
@@ -68,7 +54,7 @@ const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, Control
                             {pageDescription}
                         </IonLabel>
 
-                        <ControlModule />
+                        <ControlModule controlModuleHandler={controlModuleHandler} />
 
                     </div>
                 </div>
