@@ -39,13 +39,15 @@ const Webinar = () => {
         setSearchString(text);
     }
 
-    const controlModuleHandler = (e) => {
-        setControlModuleValue(e.detail.value);
+    const controlModuleHandler = (state) => {
+        setControlModuleValue(state);
         setFilterByControlModule(true);
+
     };
 
-    const exeuteControlModuleSearch = () => {
+    const exeuteControlModuleSearch = (state) => {
 
+        const h = controlModuleStates.scheduled;
         const searchResults = data.filter(i => {
 
             if (controlModuleValue === controlModuleStates.active) {
@@ -54,7 +56,7 @@ const Webinar = () => {
                     return i;
                 }
 
-            } else if (controlModuleStates === controlModuleStates.shceduled) {
+            } else if (controlModuleValue === controlModuleStates.scheduled) {
 
                 if (i.activeStatus === status.scheduled) {
                     return i;
@@ -80,13 +82,13 @@ const Webinar = () => {
         const searchResults = searcher.search(searchString);
 
 
-        console.log('search results', searchResults)
+        // console.log('search results', searchResults)
         searchResults.length === 0 ? setFallBackDisplay(<h4>No content found</h4>) : setActiveDisplay(searchResults)
         setSearchString(undefined)
     }
 
-    console.log(controlModuleValue)
     if (searchString) {
+
         setFallBackDisplay(undefined)
         exeuteSearch();
 
@@ -96,6 +98,7 @@ const Webinar = () => {
         exeuteControlModuleSearch();
     }
 
+    console.log('re-render')
 
 
     return (

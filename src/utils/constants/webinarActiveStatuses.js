@@ -1,5 +1,5 @@
 export default {
-    shceduled: 'scheduled',
+    scheduled: 'scheduled',
     upComing: 'upComing',
     active: 'active',
     expired: 'expired'

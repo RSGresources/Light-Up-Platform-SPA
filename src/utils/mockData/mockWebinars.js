@@ -45,7 +45,7 @@ export default [
         description: "Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.",
         scheduledTime: "1586154836",
         expiredTime: "1586158436",
-        activeStatus: status.shceduled
+        activeStatus: status.scheduled
     },
     {
         host: "Andy Berry 1",
@@ -63,7 +63,7 @@ export default [
         description: "Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.",
         scheduledTime: "1586154836",
         expiredTime: "1586158436",
-        activeStatus: status.shceduled
+        activeStatus: status.scheduled
     },
     {
         host: "Lee coop 2",
