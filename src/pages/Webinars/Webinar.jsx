@@ -42,7 +42,6 @@ const Webinar = () => {
     const controlModuleHandler = (state) => {
         setControlModuleValue(state);
         setFilterByControlModule(true);
-
     };
 
     const exeuteControlModuleSearch = (state) => {
@@ -98,7 +97,6 @@ const Webinar = () => {
         exeuteControlModuleSearch();
     }
 
-    console.log('re-render')
 
 
     return (
