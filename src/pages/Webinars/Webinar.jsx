@@ -39,6 +39,11 @@ const Webinar = () => {
         setSearchString(text);
     }
 
+    const clearButtonHandler = (text) => {
+        setSearchString('');
+        setFilterByControlModule(true);
+    }
+
     const controlModuleHandler = (state) => {
         setControlModuleValue(state);
         setFilterByControlModule(true);
@@ -46,7 +51,6 @@ const Webinar = () => {
 
     const exeuteControlModuleSearch = (state) => {
 
-        const h = controlModuleStates.scheduled;
         const searchResults = data.filter(i => {
 
             if (controlModuleValue === controlModuleStates.active) {
@@ -108,6 +112,7 @@ const Webinar = () => {
                 searchBarHandler={searchBarHandler}
                 ControlModule={WebinarControlModule}
                 controlModuleHandler={controlModuleHandler}
+                clearButtonHandler={clearButtonHandler}
             />
 
 

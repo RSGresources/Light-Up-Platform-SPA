@@ -13,9 +13,48 @@ import React, { useState } from 'react';
 
 import './SpecialistPageHeader.scss'
 
-const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, ControlModule, controlModuleHandler, searchBarHandler }) => {
+const clearSearchButtonInactiave = {
+    textTransform: 'none',
+    color: 'white',
+    opacity: '50%'
+};
+
+const clearSerchButtonActive = {
+    opacity: '100%',
+    textTransform: 'none',
+    color: 'white',
+}
+
+const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, ControlModule, controlModuleHandler, searchBarHandler, clearButtonHandler }) => {
 
     const [searchText, setSearchText] = useState('');
+    const [clearActive, setClearActive] = useState(false);
+
+    const isEmptyorWhiteSpace = (str) => {
+        const result = str === null || str.match(/^\s*$/) !== null;
+        return result
+    };
+
+    const handleSearchBarClick = (searchParams) => {
+
+        if (isEmptyorWhiteSpace(searchParams)) {
+            setSearchText('')
+            setClearActive(false);
+
+
+        } else {
+            setClearActive(true);
+            searchBarHandler(searchParams)
+        }
+
+    }
+
+    const handleClearClick = () => {
+        setSearchText('');
+        setClearActive(false);
+        clearButtonHandler('');
+
+    }
 
 
     return (
@@ -38,12 +77,12 @@ const SpecialistPageHeader = ({ branchTitle, pageTitle, pageDescription, Control
                                 placeholder="Search..."
                                 value={searchText}
                                 onChange={e => { setSearchText(e.target.value) }}
-                                onKeyDown={(e) => e.type === 'keydown' && (e.key === 'Enter' || e.key === 'done') && searchBarHandler(searchText)}
+                                onKeyDown={(e) => e.type === 'keydown' && (e.key === 'Enter' || e.key === 'done') && handleSearchBarClick(searchText)}
                             />
 
-                            <IonLabel class="search-bar-clear-label">
+                            <IonLabel class="search-bar-clear-label" onClick={handleClearClick} style={!isEmptyorWhiteSpace(searchText) || clearActive ? clearSerchButtonActive : clearSearchButtonInactiave}>
                                 clear
-                        </IonLabel>
+                            </IonLabel>
                         </div>
                     </div>
                     <div className="container-toolbar-sub">
